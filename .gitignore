@@ -1,0 +1,39 @@
+
+# Environment files and secrets
+**/.env
+**/.env.*
+!**/.env.example
+
+# Persistent application data
+/data/
+/**/data/
+
+# Backups and recovery artifacts
+/backups/
+/**/backups/
+*.sql
+*.sql.gz
+*.dump
+*.tar
+*.tar.gz
+*.age
+
+# Logs and temporary files
+/logs/
+/**/logs/
+*.log
+*.tmp
+*.swp
+*.bak
+
+# Private keys and certificates
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Operating system and editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
