@@ -1,6 +1,6 @@
 # 04 — Installation and Verification Runbook
 
-**Status:** VPS baseline and Docker installation completed; application installation pending  
+**Status:** VPS baseline completed; 9Router deployed with basic health verified; security closeout pending
 **Last updated:** 2026-10-12
 
 ## 1. Scope

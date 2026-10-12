@@ -2,7 +2,7 @@
 
 Infrastructure repository for the Octa Hub self-hosted environment. This repository documents the architecture, configuration conventions, operational runbooks, security controls, and recovery procedures for services deployed on a Dahono Cloud VPS.
 
-> **Current phase:** VPS initialization and baseline setup. Application stacks have not yet been installed.
+> **Current phase:** VPS baseline completed. 9Router is deployed and its basic health endpoint is verified; ingress security review and final documentation closeout remain pending. Other application stacks have not yet been installed.
 
 ## Architecture Overview
 
@@ -10,7 +10,7 @@ Infrastructure repository for the Octa Hub self-hosted environment. This reposit
 
 | Service | Repository directory | Public URL | Status |
 |---|---|---|---|
-| 9router | `stacks/router/` | https://router.octalectzz.my.id | Planned |
+| 9router | `stacks/router/` | https://router.octalectzz.my.id | Deployed; basic health verified; security review pending |
 | Hermes Agent and dashboard | `stacks/hermes/` | https://hermes.octalectzz.my.id | Planned |
 | n8n | `stacks/n8n/` | https://n8n.octalectzz.my.id | Planned |
 | Obsidian Web | `stacks/obsidian/` | https://obsidian.octalectzz.my.id | Planned |
@@ -26,7 +26,7 @@ Potential supporting components include internal SearXNG, an n8n sandbox/runner,
 - Virtualization: LXC
 - Architecture: `amd64`
 - Resources: 4 vCPU, 8 GiB RAM, 2 GiB swap, approximately 49–50 GB disk
-- Container IP: `10.10.0.238`
+- Container IP: `<VPS_CONTAINER_IP>`
 - Docker Engine and Docker Compose plugin: installed and verified
 - GitHub remote: `git@github.com:OctaLectzz/octa-hub-infrastructure.git`
 - Default branch: `main`

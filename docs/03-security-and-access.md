@@ -5,7 +5,7 @@
 
 ## 1. SSH
 
-- VPS endpoint: `143.20.199.50:33822`, forwarded to internal port 22.
+- VPS endpoint: `<SSH_PUBLIC_IP>:<SSH_FORWARD_PORT>`, forwarded to internal port 22.
 - SSH password authentication has intentionally not been disabled.
 - Do not modify SSH or firewall settings until the access path and recovery options have been reviewed.
 - An Ed25519 key was created at `/root/.ssh/id_ed25519` for GitHub authentication. Its private key must remain secret and must never be committed or shared.

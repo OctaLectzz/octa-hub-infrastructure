@@ -17,8 +17,8 @@ Rebuild Octa Hub services from scratch on Dahono VPS without restoring the previ
 - CPU: 4 vCPU.
 - RAM: 8 GiB; swap: 2 GiB.
 - Disk: approximately 49–50 GB.
-- Container IP: `10.10.0.238`; gateway: `10.10.0.1`.
-- SSH public endpoint: `143.20.199.50:33822`, forwarded to internal port 22.
+- Container IP: `<VPS_CONTAINER_IP>`; gateway: `<VPS_GATEWAY_IP>`.
+- SSH public endpoint: `<SSH_PUBLIC_IP>:<SSH_FORWARD_PORT>`, forwarded to internal port 22.
 - Docker Engine and Compose are installed and verified; see `06-vps-initialization-record.md`.
 
 Because this repository is Public, consider whether operational network details should remain in this document before committing.
@@ -83,4 +83,4 @@ Check current stable/LTS releases and compatibility requirements during each ins
 
 ## 7. Status
 
-OS baseline, Docker, directory setup, and initial GitHub push are complete. Application deployments and public domain routing remain pending.
+OS baseline, Docker, directory setup, and initial GitHub push are complete. 9Router is deployed and its basic health endpoint is verified. Its ingress security review and version check remain open; other application deployments are pending.

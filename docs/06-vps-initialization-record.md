@@ -17,9 +17,9 @@
 | RAM | 8 GiB |
 | Swap | 2 GiB |
 | Disk | approximately 49–50 GB |
-| Container IP | `10.10.0.238` |
-| Gateway | `10.10.0.1` |
-| SSH endpoint | `143.20.199.50:33822`, forwarded to internal port 22 |
+| Container IP | `<VPS_CONTAINER_IP>` |
+| Gateway | `<VPS_GATEWAY_IP>` |
+| SSH endpoint | `<SSH_PUBLIC_IP>:<SSH_FORWARD_PORT>`, forwarded to internal port 22 |
 
 The repository is Public. Review whether operational network details should remain publicly visible before committing this record.
 
@@ -115,4 +115,4 @@ The private key must never be committed or shared. The GitHub SSH key is separat
 
 The VPS baseline is usable: Ubuntu updated, Docker installed and verified, planned directory layout created, and initial GitHub push completed. Before the documentation closeout, review the public-disclosure implications of committing VPS IP/network details and verify `.gitignore`, root `README.md`, and current Git state.
 
-After closeout, start a new Project session for 9router. Use its official repository/documentation and current compatibility guidance. Do not assume any application is installed until health and access have been verified.
+9Router has since been deployed in a separate session. See docs/07-router-installation-record.md and docs/08-router-security-and-open-items.md. Its ingress exposure, published-version discrepancy, and restore test remain open. Do not assume other applications are installed until their health and access have been verified.

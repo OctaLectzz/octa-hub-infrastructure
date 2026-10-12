@@ -58,7 +58,14 @@
 
 ## F. Application and Integration
 
-- [ ] Verify official repository and deployment procedure for 9router.
+- [x] Review the official 9Router repository and Docker guide.
+- [x] Deploy 9Router image `ghcr.io/decolua/9router:0.5.95` using Docker Compose.
+- [x] Verify Compose configuration, container running state, HTTPS login page, and API health endpoint.
+- [x] Create and validate a local archive of 9Router persistent data.
+- [x] Commit and push 9Router Compose configuration and safe environment template (`f5d7891`).
+- [ ] Review direct exposure of port 20128 and confirm Dahono ingress/network behavior.
+- [ ] Resolve the dashboard `0.5.99` notice against official published image tags.
+- [ ] Perform a staging restore test for the 9Router backup.
 - [ ] Verify official Hermes Agent and dashboard documentation.
 - [ ] Verify official n8n documentation, sandbox/runner template, and compatible versions.
 - [ ] Confirm whether PostgreSQL is required and finalize database design.
