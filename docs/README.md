@@ -19,6 +19,7 @@ This directory contains documentation for Octa Hub infrastructure, including arc
 - [Hermes Deployment](10-hermes-deployment.md) — Deployment configuration and verification results.
 - [Hermes Security Review](11-hermes-security.md) — Authentication, API access, networking, terminal backend, and security findings.
 - [Hermes Operations and Troubleshooting](12-hermes-operations.md) — Operational commands and troubleshooting procedures.
+- [Hermes Obsidian Memory Plugin](14-hermes-obsidian-memory.md) — Runtime vault configuration, automatic refresh, graph labels, verification, and maintenance notes.
 
 ## n8n and Integrations
 

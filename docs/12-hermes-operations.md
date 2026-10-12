@@ -1,7 +1,7 @@
 # 12 — Hermes Agent Operations and Troubleshooting
 
 **Status:** Initial operational guide; security closeout pending
-**Last updated:** 2026-10-12
+**Last updated:** 2026-10-13
 
 ## 1. Official References
 
@@ -137,7 +137,20 @@ If Telegram stops responding:
 
 Never display or paste the bot token. Do not recreate the integration or overwrite its configuration until the existing state has been inspected.
 
-## 10. Updates and Image Changes
+## 10. Obsidian Memory Plugin
+
+For the Hermes dashboard's Obsidian Memory plugin:
+
+- Check the configured vault path and plugin runtime files before troubleshooting.
+- The vault used in the tested setup is `/opt/data/obsidian-vault` inside the container.
+- The plugin API cache uses a five-second TTL, and the dashboard frontend polls for updated note/folder/tag/graph data.
+- A new filesystem note was observed appearing without a manual browser refresh after these runtime changes were activated.
+- If updates stop appearing, inspect the plugin API response and browser requests before restarting Hermes or changing the vault.
+- See `docs/14-hermes-obsidian-memory.md` for the recorded customizations, verification, and runtime backup paths.
+
+The plugin files are stored in persistent runtime data and are not automatically versioned by this repository. An upstream plugin upgrade may overwrite local changes.
+
+## 11. Updates and Image Changes
 
 The Compose file references `nousresearch/hermes-agent:stable`.
 
@@ -152,7 +165,7 @@ Before updating:
 
 Do not assume that the `stable` tag always refers to the same image. Record the deployed image version or digest after verification.
 
-## 11. Security Reminders
+## 12. Security Reminders
 
 - Do not mount the host Docker socket as a quick troubleshooting fix.
 - Do not assume that containers on `octa-hub` are isolated from one another.

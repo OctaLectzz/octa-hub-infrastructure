@@ -1,9 +1,9 @@
 # 09 — Next Session Handoff
 
-**Prepared:** 2026-10-12
-**Current session scope:** Hermes Agent and dashboard deployment and security closeout
+**Prepared:** 2026-10-13
+**Current session scope:** Hermes Obsidian Memory runtime fixes and documentation handoff
 **Current deployment:** Hermes is installed and running; dashboard OAuth and Basic Auth login have been verified
-**Next planned service:** Complete Hermes security closeout, then proceed to the next application in a separate session.
+**Next planned work:** Review and commit the updated documentation, then resume the outstanding security/repository tasks before beginning the separately planned Obsidian Web service.
 
 ## Project Rules
 
@@ -65,6 +65,25 @@ Do not repeat VPS initialization. Resume from the repository's actual Git state 
 - The runtime files `.env`, `config.yaml`, and `auth.json` were observed with permissions `600` and owner `hermes:hermes`.
 - The Hermes security findings and residual risks have been documented. This is not a complete penetration test or security certification.
 
+## Obsidian Memory Runtime Changes (2026-10-13)
+
+The Hermes dashboard's Obsidian Memory plugin was configured to use `/opt/data/obsidian-vault` inside the container via `OBSIDIAN_VAULT_PATH`. Runtime modifications were made and tested:
+
+- Backend vault-note cache TTL set to five seconds in `dashboard/plugin_api.py`.
+- Frontend polling configured for a ten-second interval while the tab is visible and no note is being edited.
+- Graph labels changed to render for all nodes.
+- Hermes was restarted to load the backend change.
+- The vault and notes APIs returned HTTP 200.
+- A new filesystem note appeared in the dashboard without a manual browser refresh.
+- Graph labels appeared after a hard browser reload.
+
+Details and limitations are recorded in `docs/14-hermes-obsidian-memory.md`. The plugin files and their backups reside in the Hermes persistent runtime volume, not in this repository. Do not assume the customizations are reproducible from Git yet; a plugin upgrade may overwrite them.
+
+Runtime backup paths recorded during the session:
+- `/opt/data/plugins/obsidian-memory/dashboard/plugin_api.py.bak-20261012-193719`
+- `/opt/data/plugins/obsidian-memory/dashboard/plugin.js.bak-20261013-polling`
+- `/opt/data/plugins/obsidian-memory/dashboard/plugin.js.bak-20261013-graph-labels`
+
 ## Start of Following Session
 
 1. Check `git status --short` and inspect the current diff before making further edits.
@@ -90,4 +109,4 @@ Do not change live security settings or expose credentials as part of documentat
 
 ## Documentation Update Status
 
-The proposed documentation ZIP is staged under `/tmp/octa-doc-stage`. Do not overwrite the repository blindly. Preserve local n8n changes, review the complete diff, scan for secrets, and only then commit and push.
+The documentation update includes `docs/14-hermes-obsidian-memory.md` and related handoff/checklist/index updates. The documentation has been prepared for the VPS working tree, but it is not considered committed or pushed until `git status`, the complete diff, `git diff --check`, and a public-disclosure review have been completed. Preserve the existing `stacks/hermes/compose.yaml` change for `OBSIDIAN_VAULT_PATH`; do not overwrite it. Keep runtime plugin files, vault contents, backups, `.env`, and credentials out of Git.

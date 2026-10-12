@@ -76,7 +76,7 @@ The repository is currently Public by user decision. Treat all committed content
     └── 12-hermes-operations.md
 ```
 
-The tree shows the repository structure and planned locations for service configuration files. Compose files currently exist for 9Router and Hermes Agent; Compose files for other planned services may not exist yet. Actual `.env` files and persistent application data remain on the VPS and must never be committed to Git. Runtime data is kept under `/opt/octa/data/`, outside the repository. Local backup artifacts and operational logs are also excluded from version control.
+The tree shows the repository structure and planned locations for service configuration files. The Hermes Obsidian Memory plugin's runtime customizations are documented in `docs/14-hermes-obsidian-memory.md`; the plugin files and vault themselves remain in the Hermes persistent runtime volume and are not included in this repository. Compose files for planned services may not exist yet. Actual `.env` files and persistent application data remain on the VPS and must never be committed to Git. Runtime data is kept under `/opt/octa/data/`, outside the repository. Local backup artifacts and operational logs are also excluded from version control.
 
 ## Directory Responsibilities
 

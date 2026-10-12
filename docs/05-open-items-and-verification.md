@@ -86,7 +86,9 @@
 - [ ] Re-check the latest stable versions and compatibility before planned upgrades.
 - [x] Select and deploy PostgreSQL as the n8n database; verify the database container health.
 - [ ] Verify PostgreSQL backup/restore, permissions, and recovery procedures.
-- [ ] Verify Obsidian Web deployment option and security requirements.
+- [ ] Verify Obsidian Web deployment option and security requirements (separate from the Hermes Obsidian Memory plugin).
+- [x] Configure and test automatic refresh for the Hermes Obsidian Memory plugin; see `docs/14-hermes-obsidian-memory.md`.
+- [ ] Decide how to version/reapply the Hermes Obsidian Memory runtime patch before plugin upgrades.
 - [ ] Verify internal SearXNG deployment and integrations.
 - [ ] Determine Octa Hub build/deployment requirements.
 - [ ] Measure resource usage with all services running.
