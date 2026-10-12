@@ -1,38 +1,118 @@
-# Octa Hub Infrastructure Documentation
+# Octa Hub Infrastructure
 
-**Last updated:** 2026-10-12  
-**Project phase:** VPS initialization and baseline setup  
-**Status:** VPS baseline setup completed; application installations not started.
+Infrastructure repository for the Octa Hub self-hosted environment. This repository documents the architecture, configuration conventions, operational runbooks, security controls, and recovery procedures for services deployed on a Dahono Cloud VPS.
 
-## Documentation Index
+> **Current phase:** VPS initialization and baseline setup. Application stacks have not yet been installed.
 
-1. `01-architecture-and-decisions.md` — architecture, services, domains, directory layout, and decisions.
-2. `02-backup-and-restore.md` — backup policy, retention, encryption, and recovery.
-3. `03-security-and-access.md` — SSH, ingress, networking, vault access, and administrative controls.
-4. `04-installation-and-verification-runbook.md` — installation sequence and verification procedures.
-5. `05-open-items-and-verification.md` — unresolved items and verification checklist.
-6. `06-vps-initialization-record.md` — completed VPS initialization, OS maintenance, Docker installation, directory setup, and GitHub setup.
+## Architecture Overview
 
-## Project Rules
+### Public Services
 
-- Follow the official documentation and official repository for each application.
-- Check the latest stable/LTS release and compatibility requirements at implementation time.
-- Use modular Docker Compose stacks.
-- Treat this repository as infrastructure documentation and configuration source control, not as a place for credentials or persistent application data.
-- Keep repository files in English.
-- Keep real `.env` files, private keys, tokens, passwords, database dumps, backups, and persistent application data out of Git.
-- Record actual verification results; distinguish completed, planned, and unverified work.
-- Complete and verify one application in a dedicated session before starting the next application in a new session.
+| Service | Repository directory | Public URL | Status |
+|---|---|---|---|
+| 9router | `stacks/router/` | https://router.octalectzz.my.id | Planned |
+| Hermes Agent and dashboard | `stacks/hermes/` | https://hermes.octalectzz.my.id | Planned |
+| n8n | `stacks/n8n/` | https://n8n.octalectzz.my.id | Planned |
+| Obsidian Web | `stacks/obsidian/` | https://obsidian.octalectzz.my.id | Planned |
+| Octa Hub dashboard | `stacks/octa-hub/` | https://hub.octalectzz.my.id | Planned |
 
-## Current Status
+Potential supporting components include internal SearXNG, an n8n sandbox/runner, and a database service if required by the official deployment guidance. These are not considered installed or finalized until their requirements are verified.
 
-The VPS baseline work recorded in `06-vps-initialization-record.md` has been performed and verified based on terminal output supplied during the session. No application stack (9router, Hermes, n8n, Obsidian Web, or Octa Hub) has been installed in this phase.
+### VPS Baseline
 
-The GitHub repository is:
-https://github.com/OctaLectzz/octa-hub-infrastructure
+- Provider: Dahono Cloud VPS (NAT)
+- Hostname: `octa-hub`
+- Operating system: Ubuntu 24.04.5 LTS (Noble)
+- Virtualization: LXC
+- Architecture: `amd64`
+- Resources: 4 vCPU, 8 GiB RAM, 2 GiB swap, approximately 49–50 GB disk
+- Container IP: `10.10.0.238`
+- Docker Engine and Docker Compose plugin: installed and verified
+- GitHub remote: `git@github.com:OctaLectzz/octa-hub-infrastructure.git`
+- Default branch: `main`
 
-Repository visibility was intentionally left **Public** by user decision on 2026-10-12. Review every staged change for sensitive information before pushing.
+The repository is currently Public by user decision. Treat all committed content as publicly visible. Do not commit secrets or details that should not be disclosed.
 
-## Source of Truth
+## Repository Architecture
 
-These documents are a record of decisions and reported verification. When a document differs from actual VPS output, verify the live system and update the record rather than assuming the document is correct.
+```text
+.
+├── README.md                         # Repository overview and architecture
+├── .gitignore                        # Excludes local secrets and generated data
+├── stacks/                           # Per-service Docker Compose configuration
+│   ├── router/
+│   │   ├── compose.yaml              # To be added after official-doc review
+│   │   ├── .env                      # Local only; never commit
+│   │   └── .env.example              # Safe template; commit when documented
+│   ├── hermes/
+│   │   ├── compose.yaml
+│   │   ├── .env
+│   │   └── .env.example
+│   ├── n8n/
+│   │   ├── compose.yaml
+│   │   ├── .env
+│   │   └── .env.example
+│   ├── obsidian/
+│   │   ├── compose.yaml
+│   │   ├── .env
+│   │   └── .env.example
+│   └── octa-hub/
+│       ├── compose.yaml
+│       ├── .env
+│       └── .env.example
+└── docs/                             # Project documentation
+    ├── README.md                     # Documentation index
+    ├── 01-architecture-and-decisions.md
+    ├── 02-backup-and-restore.md
+    ├── 03-security-and-access.md
+    ├── 04-installation-and-verification-runbook.md
+    ├── 05-open-items-and-verification.md
+    └── 06-vps-initialization-record.md
+```
+
+The tree describes the intended repository structure. Files such as service `compose.yaml` and actual `.env` files may not exist yet. Runtime data is kept on the VPS under `/opt/octa/data/`, not in Git. Local backup artifacts and operational logs are also excluded from version control.
+
+## Directory Responsibilities
+
+- `stacks/<service>/`: Docker Compose files and service-specific environment templates.
+- `data/<service>/` on the VPS: persistent application data and mounted volumes.
+- `docs/`: architecture decisions, security policy, backup/restore procedures, runbooks, and session handoffs.
+- `.env`: real configuration and credentials, local to the VPS and never committed.
+- `.env.example`: documented variable names with safe placeholders, suitable for Git after review.
+- `.gitignore`: excludes secrets, persistent data, backups, logs, and temporary artifacts.
+
+## Operating Principles
+
+1. Follow each application's official documentation and official repository.
+2. Verify current stable/LTS versions and compatibility at installation time.
+3. Deploy one application at a time with modular Docker Compose.
+4. Verify container health, logs, persistence, authentication, network exposure, and domain routing before marking an installation complete.
+5. Do not expose internal dependencies such as SearXNG or sandbox/runner APIs directly to the internet without an explicitly reviewed requirement.
+6. Do not give Octa Hub direct Docker socket or root access just for monitoring.
+7. Hermes and n8n may read and write the Obsidian vault, but every deletion must require explicit authenticated approval from the system owner or designated administrator, with audit logging and no bypass path.
+8. Keep real secrets out of Git and logs. Review every staged change before committing.
+9. Configure the first automated backup only after all application installations are complete, as agreed. Backups are intended for Cloudflare R2 and Dahono S3, encrypted client-side, daily at 05:00 WIB, with at most three valid generations per destination and restore tests in staging.
+10. Each application installation is handled in its own session. After successful verification, update the documentation, commit and push, then start a new session for the next application.
+
+## Documentation
+
+Start at [`docs/README.md`](docs/README.md) for the documentation index.
+
+- [Architecture and Decisions](docs/01-architecture-and-decisions.md)
+- [Backup and Restore](docs/02-backup-and-restore.md)
+- [Security and Access](docs/03-security-and-access.md)
+- [Installation and Verification Runbook](docs/04-installation-and-verification-runbook.md)
+- [Open Items and Verification](docs/05-open-items-and-verification.md)
+- [VPS Initialization Record](docs/06-vps-initialization-record.md)
+
+## Git Safety
+
+Review changes before committing:
+
+```bash
+git status
+git diff
+git diff --cached
+```
+
+Never commit `.env`, private keys, access tokens, passwords, database dumps, backups, or persistent application data. `.gitignore` is a guardrail, not a substitute for reviewing staged content.
