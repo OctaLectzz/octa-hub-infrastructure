@@ -1,7 +1,7 @@
 # 05 — Open Items and Verification Checklist
 
 **Status:** Active work list  
-**Last updated:** 2026-10-12
+**Last updated:** 2026-10-13
 
 ## A. Completed VPS Baseline Items
 
@@ -80,9 +80,12 @@
 - [ ] Finalize the public dashboard authentication policy and trusted-proxy review.
 - [ ] Determine whether direct access to dashboard port `9119` can be restricted without breaking Dahono ingress.
 - [ ] Review Hermes API network access and terminal backend isolation before adding more services to `octa-hub`.
+- [x] Deploy n8n and verify its public HTTPS endpoint and API access.
 - [ ] Finish reviewing Hermes documentation, then commit and push the verified changes.
-- [ ] Verify official n8n documentation, sandbox/runner template, and compatible versions.
-- [ ] Confirm whether PostgreSQL is required and finalize database design.
+- [x] Review official n8n Docker Compose guidance and verify the deployed external runner with a test workflow.
+- [ ] Re-check the latest stable versions and compatibility before planned upgrades.
+- [x] Select and deploy PostgreSQL as the n8n database; verify the database container health.
+- [ ] Verify PostgreSQL backup/restore, permissions, and recovery procedures.
 - [ ] Verify Obsidian Web deployment option and security requirements.
 - [ ] Verify internal SearXNG deployment and integrations.
 - [ ] Determine Octa Hub build/deployment requirements.
@@ -109,3 +112,13 @@
 ## H. Next Step
 
 Complete the Hermes security review and documentation closeout. Commit and push only after reviewing the complete diff and confirming that no secrets or runtime data are staged. Then begin the next application in a separate session, following its official installation documentation.
+
+## I. n8n and Hermes Integration
+
+- [x] Authenticated n8n REST API request returned HTTP 200.
+- [x] External runner test returned `runner-ok`.
+- [x] Hermes `n8n-official` MCP client was shown as connected.
+- [x] REST plugin list/get/create/update paths were tested.
+- [x] Permanent REST test workflow was manually executed and returned `rest-api-ok`; it remains inactive.
+- [ ] Review n8n security, ingress exposure, PostgreSQL/runner network boundaries, and backup/restore.
+- [ ] If activation testing is needed, use a separate harmless workflow with an automatic trigger and explicit approval. The Manual Trigger-only test returned HTTP 400 on activation and remains inactive.

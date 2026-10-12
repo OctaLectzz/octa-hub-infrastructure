@@ -20,6 +20,10 @@ This directory contains documentation for Octa Hub infrastructure, including arc
 - [Hermes Security Review](11-hermes-security.md) — Authentication, API access, networking, terminal backend, and security findings.
 - [Hermes Operations and Troubleshooting](12-hermes-operations.md) — Operational commands and troubleshooting procedures.
 
+## n8n and Integrations
+
+- [n8n Deployment and Hermes Integration](13-n8n-deployment-and-hermes-integration.md) — Deployment facts, test workflows, REST plugin, MCP status, and remaining checks.
+
 ## Project Principles
 
 - Follow the official documentation and repository of each application.

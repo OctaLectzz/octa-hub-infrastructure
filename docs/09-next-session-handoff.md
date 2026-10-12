@@ -75,3 +75,19 @@ Do not repeat VPS initialization. Resume from the repository's actual Git state 
 6. After the documentation is pushed, continue with the separate 9Router security review, including published port `20128`, Dahono ingress behavior, official image updates, and the existing backup's restore verification.
 
 Do not change live security settings or expose credentials as part of documentation-only work.
+
+## n8n Deployment and Hermes Integration
+
+- Domain: https://n8n.octalectzz.my.id
+- Compose file: `/opt/octa/stacks/n8n/compose.yaml`
+- Persistent data: `/opt/octa/data/n8n` and `/opt/octa/data/n8n-postgres`
+- Observed images: `docker.n8n.io/n8nio/n8n:2.42.7`, `n8nio/runners:2.42.7`, and `postgres:18`.
+- REST API, external runner, Hermes MCP connection, and selected REST plugin operations were tested.
+- Permanent workflow `Octa - REST API Integration Test - Updated` (`IHbqAs7sx1rtL5td`) must remain present and inactive; manual execution returned `rest-api-ok`.
+- Activation attempt on the Manual Trigger-only test returned HTTP 400. It remains inactive.
+- The active Compose configuration publishes port 5678 on all IPv4 and IPv6 host interfaces. Direct internet reachability is not yet established; verify Dahono NAT, ingress, and firewall rules before changing this mapping.
+- See `docs/13-n8n-deployment-and-hermes-integration.md` for the deployment record and remaining checks.
+
+## Documentation Update Status
+
+The proposed documentation ZIP is staged under `/tmp/octa-doc-stage`. Do not overwrite the repository blindly. Preserve local n8n changes, review the complete diff, scan for secrets, and only then commit and push.

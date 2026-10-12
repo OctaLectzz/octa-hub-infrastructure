@@ -1,11 +1,11 @@
 # 04 — Installation and Verification Runbook
 
-**Status:** VPS baseline completed; 9Router and Hermes deployed; Hermes dashboard login verified; security closeout pending
-**Last updated:** 2026-10-12
+**Status:** VPS baseline, 9Router, Hermes, and n8n deployed; Hermes–n8n integration tests verified; security closeout and remaining services pending
+**Last updated:** 2026-10-13
 
 ## 1. Scope
 
-This runbook tracks baseline setup and the workflow for application installations. 9Router and Hermes are deployed. n8n, Obsidian Web, and Octa Hub remain planned until their deployments are verified.
+This runbook tracks baseline setup and the workflow for application installations. 9Router, Hermes, and n8n are deployed. Obsidian Web and Octa Hub remain unverified and must not be treated as deployed until their runtime state is checked.
 
 ## 2. Completed OS Maintenance
 
@@ -122,3 +122,10 @@ Security follow-up:
 - Docker-published ports may not be blocked as expected by UFW alone.
 - Do not assume Dahono Web Ingress behavior until verified.
 - Do not report success without supporting verification output.
+
+
+## 8. n8n Deployment and Hermes Integration
+
+The n8n deployment and integration verification record is maintained in
+[`13-n8n-deployment-and-hermes-integration.md`](13-n8n-deployment-and-hermes-integration.md).
+That record distinguishes observed test results from unresolved security and activation checks.

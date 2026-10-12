@@ -2,7 +2,7 @@
 
 Infrastructure repository for the Octa Hub self-hosted environment. This repository documents the architecture, configuration conventions, operational runbooks, security controls, and recovery procedures for services deployed on a Dahono Cloud VPS.
 
-> **Current phase:** VPS baseline completed. 9Router and Hermes Agent are deployed. The 9Router ingress security review and Hermes security closeout remain pending. n8n, Obsidian Web, and the Octa Hub dashboard remain planned.
+> **Current phase:** VPS baseline, 9Router, Hermes Agent, and n8n are deployed. Hermes–n8n REST/MCP integration has been tested. Security reviews remain open; Obsidian Web and the Octa Hub dashboard are not yet verified as deployed.
 
 ## Architecture Overview
 
@@ -12,7 +12,7 @@ Infrastructure repository for the Octa Hub self-hosted environment. This reposit
 |---|---|---|---|
 | 9router | `stacks/router/` | https://router.octalectzz.my.id | Deployed; basic health verified; security review pending |
 | Hermes Agent and dashboard | `stacks/hermes/` | https://hermes.octalectzz.my.id | Deployed; OAuth and Basic Auth login verified; API security review pending |
-| n8n | `stacks/n8n/` | https://n8n.octalectzz.my.id | Planned |
+| n8n | `stacks/n8n/` | https://n8n.octalectzz.my.id | Deployed; API and runner tests verified; security and operational closeout pending |
 | Obsidian Web | `stacks/obsidian/` | https://obsidian.octalectzz.my.id | Planned |
 | Octa Hub dashboard | `stacks/octa-hub/` | https://hub.octalectzz.my.id | Planned |
 
@@ -116,6 +116,7 @@ Start at [`docs/README.md`](docs/README.md) for the documentation index.
 - [Hermes Deployment](docs/10-hermes-deployment.md)
 - [Hermes Security Review](docs/11-hermes-security.md)
 - [Hermes Operations and Troubleshooting](docs/12-hermes-operations.md)
+- [n8n Deployment and Hermes Integration](docs/13-n8n-deployment-and-hermes-integration.md)
 
 ## Git Safety
 
