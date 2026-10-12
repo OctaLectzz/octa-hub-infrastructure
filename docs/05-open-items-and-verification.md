@@ -22,7 +22,7 @@
 - [x] Branch `main` pushed and tracking `origin/main`.
 - [x] Repository visibility intentionally left Public by user decision.
 - [ ] Review actual `.gitignore` and root `README.md` on VPS against this policy.
-- [ ] Verify the updated documentation files are committed and pushed.
+- [x] Commit and push the Hermes Obsidian Memory documentation and Hermes vault-path configuration (`df617ac`).
 - [ ] Review all staged/committed content for secrets and public-disclosure risks.
 
 ## C. Dahono VPS and Network
@@ -86,7 +86,7 @@
 - [ ] Re-check the latest stable versions and compatibility before planned upgrades.
 - [x] Select and deploy PostgreSQL as the n8n database; verify the database container health.
 - [ ] Verify PostgreSQL backup/restore, permissions, and recovery procedures.
-- [ ] Verify Obsidian Web deployment option and security requirements (separate from the Hermes Obsidian Memory plugin).
+- [ ] Obsidian Web deployment is deferred by the owner; do not begin deployment unless explicitly requested. This is separate from the installed Hermes Obsidian Memory plugin.
 - [x] Configure and test automatic refresh for the Hermes Obsidian Memory plugin; see `docs/14-hermes-obsidian-memory.md`.
 - [ ] Decide how to version/reapply the Hermes Obsidian Memory runtime patch before plugin upgrades.
 - [ ] Verify internal SearXNG deployment and integrations.
@@ -113,7 +113,7 @@
 
 ## H. Next Step
 
-Complete the Hermes security review and documentation closeout. Commit and push only after reviewing the complete diff and confirming that no secrets or runtime data are staged. Then begin the next application in a separate session, following its official installation documentation.
+Do not start Obsidian Web deployment. Continue operational closeout for the already deployed services: prioritize the 9Router port/ingress security review and staging restore test, then continue Hermes security review and n8n security/backup verification. Make one scoped change at a time, validate it, update documentation, and review for public-disclosure risks before committing and pushing.
 
 ## I. n8n and Hermes Integration
 

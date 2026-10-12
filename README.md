@@ -2,7 +2,7 @@
 
 Infrastructure repository for the Octa Hub self-hosted environment. This repository documents the architecture, configuration conventions, operational runbooks, security controls, and recovery procedures for services deployed on a Dahono Cloud VPS.
 
-> **Current phase:** VPS baseline, 9Router, Hermes Agent, and n8n are deployed. Hermes–n8n REST/MCP integration has been tested. Security reviews remain open; Obsidian Web and the Octa Hub dashboard are not yet verified as deployed.
+> **Current phase:** VPS baseline, 9Router, Hermes Agent, and n8n are deployed. Hermes–n8n REST/MCP integration has been tested. Current work is focused on security reviews, recovery verification, and operational closeout. Obsidian Web deployment is deferred and must not be started unless explicitly requested.
 
 ## Architecture Overview
 
@@ -13,7 +13,7 @@ Infrastructure repository for the Octa Hub self-hosted environment. This reposit
 | 9router | `stacks/router/` | https://router.octalectzz.my.id | Deployed; basic health verified; security review pending |
 | Hermes Agent and dashboard | `stacks/hermes/` | https://hermes.octalectzz.my.id | Deployed; OAuth and Basic Auth login verified; API security review pending |
 | n8n | `stacks/n8n/` | https://n8n.octalectzz.my.id | Deployed; API and runner tests verified; security and operational closeout pending |
-| Obsidian Web | `stacks/obsidian/` | https://obsidian.octalectzz.my.id | Planned |
+| Obsidian Web | `stacks/obsidian/` | https://obsidian.octalectzz.my.id | Deferred; do not deploy until explicitly requested |
 | Octa Hub dashboard | `stacks/octa-hub/` | https://hub.octalectzz.my.id | Planned |
 
 Potential supporting components include internal SearXNG, an n8n sandbox/runner, and a database service if required by the official deployment guidance. These are not considered installed or finalized until their requirements are verified.
@@ -73,7 +73,9 @@ The repository is currently Public by user decision. Treat all committed content
     ├── 09-next-session-handoff.md
     ├── 10-hermes-deployment.md
     ├── 11-hermes-security.md
-    └── 12-hermes-operations.md
+    ├── 12-hermes-operations.md
+    ├── 13-n8n-deployment-and-hermes-integration.md
+    └── 14-hermes-obsidian-memory.md
 ```
 
 The tree shows the repository structure and planned locations for service configuration files. The Hermes Obsidian Memory plugin's runtime customizations are documented in `docs/14-hermes-obsidian-memory.md`; the plugin files and vault themselves remain in the Hermes persistent runtime volume and are not included in this repository. Compose files for planned services may not exist yet. Actual `.env` files and persistent application data remain on the VPS and must never be committed to Git. Runtime data is kept under `/opt/octa/data/`, outside the repository. Local backup artifacts and operational logs are also excluded from version control.
@@ -116,6 +118,7 @@ Start at [`docs/README.md`](docs/README.md) for the documentation index.
 - [Hermes Deployment](docs/10-hermes-deployment.md)
 - [Hermes Security Review](docs/11-hermes-security.md)
 - [Hermes Operations and Troubleshooting](docs/12-hermes-operations.md)
+- [Hermes Obsidian Memory Plugin](docs/14-hermes-obsidian-memory.md)
 - [n8n Deployment and Hermes Integration](docs/13-n8n-deployment-and-hermes-integration.md)
 
 ## Git Safety

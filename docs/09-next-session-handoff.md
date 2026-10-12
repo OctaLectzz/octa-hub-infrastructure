@@ -1,9 +1,9 @@
 # 09 — Next Session Handoff
 
 **Prepared:** 2026-10-13
-**Current session scope:** Hermes Obsidian Memory runtime fixes and documentation handoff
+**Current session scope:** Hermes Obsidian Memory runtime fixes, documentation update, and push verification
 **Current deployment:** Hermes is installed and running; dashboard OAuth and Basic Auth login have been verified
-**Next planned work:** Review and commit the updated documentation, then resume the outstanding security/repository tasks before beginning the separately planned Obsidian Web service.
+**Next planned work:** Continue security and operational closeout for services already deployed. Obsidian Web deployment is deferred and must not be started unless explicitly requested.
 
 ## Project Rules
 
@@ -27,7 +27,7 @@
 - Repository: https://github.com/OctaLectzz/octa-hub-infrastructure
 - Branch: `main`
 - Remote: `origin`
-- Hermes documentation and Compose changes are currently under review; check `git status` and the complete diff before committing.
+- Latest verified repository commit: `df617ac` (`docs(hermes): document Obsidian Memory integration`), pushed to `origin/main`; working tree was clean after push.
 
 ## 9Router State
 
@@ -91,7 +91,7 @@ Runtime backup paths recorded during the session:
 3. Verify that documentation distinguishes confirmed observations from unresolved risks.
 4. Run `git diff --check` and inspect all changed files for accidental disclosure of secrets before staging.
 5. Commit and push the reviewed documentation only after the final review.
-6. After the documentation is pushed, continue with the separate 9Router security review, including published port `20128`, Dahono ingress behavior, official image updates, and the existing backup's restore verification.
+6. Continue with the 9Router security review, including published port `20128`, Dahono ingress behavior, official image updates, and the existing backup's restore verification. Then continue Hermes security review and n8n security/backup verification. Do not begin Obsidian Web deployment unless explicitly requested.
 
 Do not change live security settings or expose credentials as part of documentation-only work.
 
@@ -109,4 +109,4 @@ Do not change live security settings or expose credentials as part of documentat
 
 ## Documentation Update Status
 
-The documentation update includes `docs/14-hermes-obsidian-memory.md` and related handoff/checklist/index updates. The documentation has been prepared for the VPS working tree, but it is not considered committed or pushed until `git status`, the complete diff, `git diff --check`, and a public-disclosure review have been completed. Preserve the existing `stacks/hermes/compose.yaml` change for `OBSIDIAN_VAULT_PATH`; do not overwrite it. Keep runtime plugin files, vault contents, backups, `.env`, and credentials out of Git.
+The Hermes Obsidian Memory documentation and the `OBSIDIAN_VAULT_PATH` Compose setting were committed and pushed in `df617ac`. The VPS reported `## main...origin/main` and a clean working tree after push. Runtime plugin files, vault contents, backups, `.env`, and credentials remain outside Git. Obsidian Web is deferred; do not deploy it until the owner explicitly requests it.
