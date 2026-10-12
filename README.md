@@ -1,77 +1,38 @@
+# Octa Hub Infrastructure Documentation
 
-# Octa Hub Infrastructure
+**Last updated:** 2026-10-12  
+**Project phase:** VPS initialization and baseline setup  
+**Status:** VPS baseline setup completed; application installations not started.
 
-Infrastructure repository for managing the Octa Hub self-hosted services.
+## Documentation Index
 
-## Services
+1. `01-architecture-and-decisions.md` — architecture, services, domains, directory layout, and decisions.
+2. `02-backup-and-restore.md` — backup policy, retention, encryption, and recovery.
+3. `03-security-and-access.md` — SSH, ingress, networking, vault access, and administrative controls.
+4. `04-installation-and-verification-runbook.md` — installation sequence and verification procedures.
+5. `05-open-items-and-verification.md` — unresolved items and verification checklist.
+6. `06-vps-initialization-record.md` — completed VPS initialization, OS maintenance, Docker installation, directory setup, and GitHub setup.
 
-| Service | Internal Directory | Public URL |
-|---|---|---|
-| 9router | `stacks/router/` | https://router.octalectzz.my.id |
-| Hermes | `stacks/hermes/` | https://hermes.octalectzz.my.id |
-| n8n | `stacks/n8n/` | https://n8n.octalectzz.my.id |
-| Obsidian | `stacks/obsidian/` | https://obsidian.octalectzz.my.id |
-| Octa Hub | `stacks/octa-hub/` | https://hub.octalectzz.my.id |
+## Project Rules
 
-## Repository Structure
+- Follow the official documentation and official repository for each application.
+- Check the latest stable/LTS release and compatibility requirements at implementation time.
+- Use modular Docker Compose stacks.
+- Treat this repository as infrastructure documentation and configuration source control, not as a place for credentials or persistent application data.
+- Keep repository files in English.
+- Keep real `.env` files, private keys, tokens, passwords, database dumps, backups, and persistent application data out of Git.
+- Record actual verification results; distinguish completed, planned, and unverified work.
+- Complete and verify one application in a dedicated session before starting the next application in a new session.
 
-- `stacks/`: Docker Compose files and environment templates.
-- `data/`: Persistent application data; never commit this directory.
-- `backups/`: Local backup and recovery artifacts; never commit these files.
-- `logs/`: Operational logs; never commit these files.
-- `docs/architecture/`: Architecture documentation and design decisions.
-- `docs/runbooks/`: Installation, maintenance, and recovery procedures.
-- `docs/changelog/`: Infrastructure change records.
+## Current Status
 
-## Environment Configuration
+The VPS baseline work recorded in `06-vps-initialization-record.md` has been performed and verified based on terminal output supplied during the session. No application stack (9router, Hermes, n8n, Obsidian Web, or Octa Hub) has been installed in this phase.
 
-Each service has an `.env.example` file containing its documented configuration variables.
+The GitHub repository is:
+https://github.com/OctaLectzz/octa-hub-infrastructure
 
-To configure a service:
+Repository visibility was intentionally left **Public** by user decision on 2026-10-12. Review every staged change for sensitive information before pushing.
 
-1. Navigate to its directory under `stacks/`.
-2. Copy `.env.example` to `.env`.
-3. Replace all placeholders with valid values.
-4. Restrict access to the `.env` file.
-5. Validate the configuration before starting the service.
+## Source of Truth
 
-Example:
-
-```bash
-cd /opt/octa/stacks/n8n
-cp .env.example .env
-chmod 600 .env
-```
-
-Do not commit `.env` files or disclose their contents.
-
-Environment variable names and required values must follow the official documentation for the corresponding application.
-
-## Git Workflow
-
-Review changes before committing:
-
-```bash
-git status
-git diff
-git diff --cached
-```
-
-Stage and commit approved changes:
-
-```bash
-git add .gitignore README.md stacks docs
-git diff --cached
-git commit -m "docs: initialize infrastructure repository"
-```
-
-Never use `git add -f` to force sensitive files into the repository.
-
-## Security Requirements
-
-- Never commit passwords, API tokens, encryption keys, or private certificates.
-- Keep persistent application data outside version control.
-- Review every staged file before committing.
-- Use separate credentials for individual services whenever supported.
-- Follow official installation and security documentation for each service.
-- Test recovery procedures before relying on backups.
+These documents are a record of decisions and reported verification. When a document differs from actual VPS output, verify the live system and update the record rather than assuming the document is correct.
