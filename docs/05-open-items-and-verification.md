@@ -66,7 +66,14 @@
 - [ ] Review direct exposure of port 20128 and confirm Dahono ingress/network behavior.
 - [ ] Resolve the dashboard `0.5.99` notice against official published image tags.
 - [ ] Perform a staging restore test for the 9Router backup.
-- [ ] Verify official Hermes Agent and dashboard documentation.
+- [x] Review official Hermes Agent Docker and dashboard documentation.
+- [x] Deploy Hermes Agent and dashboard with Docker Compose using `nousresearch/hermes-agent:stable`.
+- [x] Verify dashboard access through Dahono Web Ingress at `https://hermes.octalectzz.my.id`.
+- [x] Verify Nous OAuth and Basic Auth login through the public HTTPS domain.
+- [x] Verify that API port `8642` is not published as a host port in the Hermes Compose configuration.
+- [ ] Review the public dashboard authentication policy and trusted-proxy configuration.
+- [ ] Review Hermes API network access and terminal backend isolation before adding more services to `octa-hub`.
+- [ ] Update and review Hermes deployment documentation, then commit and push the verified changes.
 - [ ] Verify official n8n documentation, sandbox/runner template, and compatible versions.
 - [ ] Confirm whether PostgreSQL is required and finalize database design.
 - [ ] Verify Obsidian Web deployment option and security requirements.
@@ -94,4 +101,4 @@
 
 ## H. Next Step
 
-Finish reviewing and pushing the documentation layout. Then begin 9router in a separate session, reviewing official documentation before creating its Compose configuration.
+Complete the Hermes security review and documentation closeout. Commit and push only after reviewing the complete diff and confirming that no secrets or runtime data are staged. Then begin the next application in a separate session, following its official installation documentation.

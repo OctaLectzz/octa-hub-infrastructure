@@ -1,0 +1,32 @@
+services:
+  hermes:
+    image: nousresearch/hermes-agent:stable
+    container_name: hermes
+    restart: unless-stopped
+    command: ["gateway", "run"]
+    env_file:
+      - .env
+    environment:
+      HOME: /opt/data
+      API_SERVER_ENABLED: "true"
+      API_SERVER_HOST: "0.0.0.0"
+      API_SERVER_PORT: "8642"
+      HERMES_DASHBOARD: "1"
+      HERMES_DASHBOARD_HOST: "0.0.0.0"
+      HERMES_DASHBOARD_PORT: "9119"
+    volumes:
+      - /opt/octa/data/hermes:/opt/data
+    ports:
+      - "9119:9119"
+    networks:
+      - octa-hub
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  octa-hub:
+    external: true
+    name: octa-hub

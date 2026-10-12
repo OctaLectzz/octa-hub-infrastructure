@@ -1,6 +1,6 @@
 # 01 — Architecture and Infrastructure Decisions
 
-**Status:** Architecture agreed; application deployments not yet implemented  
+**Status:** Architecture agreed; 9Router and Hermes deployed; security reviews remain open
 **Last updated:** 2026-10-12
 
 ## 1. Goal
@@ -46,6 +46,7 @@ Created on the VPS:
 ├── README.md
 ├── stacks/
 │   ├── router/.env.example
+│   ├── hermes/compose.yaml
 │   ├── hermes/.env.example
 │   ├── n8n/.env.example
 │   ├── obsidian/.env.example
@@ -64,7 +65,7 @@ Created on the VPS:
     └── changelog/
 ```
 
-Service `compose.yaml` files and actual application `.env` files have not yet been created. Add supporting directories such as SearXNG, PostgreSQL, sandbox/runner, or backup only when justified by verified official requirements and final architecture.
+Compose configuration exists for 9Router and Hermes. Actual `.env` files and persistent application data remain on the VPS and must not be committed. Add supporting directories such as SearXNG, PostgreSQL, sandbox/runner, or backup only when justified by verified official requirements and final architecture.
 
 ## 5. Principles
 
@@ -83,4 +84,4 @@ Check current stable/LTS releases and compatibility requirements during each ins
 
 ## 7. Status
 
-OS baseline, Docker, directory setup, and initial GitHub push are complete. 9Router is deployed and its basic health endpoint is verified. Its ingress security review and version check remain open; other application deployments are pending.
+OS baseline and Docker are complete. 9Router is deployed; its ingress security review and version check remain open. Hermes Agent and its dashboard are deployed, and Nous OAuth plus Basic Auth login have been verified through HTTPS. Hermes API network boundaries, terminal sandbox isolation, trusted-proxy configuration, and final public-dashboard authentication policy remain open. n8n, Obsidian Web, and Octa Hub application deployments are pending.

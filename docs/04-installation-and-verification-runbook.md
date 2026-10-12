@@ -1,11 +1,11 @@
 # 04 — Installation and Verification Runbook
 
-**Status:** VPS baseline completed; 9Router deployed with basic health verified; security closeout pending
+**Status:** VPS baseline completed; 9Router and Hermes deployed; Hermes dashboard login verified; security closeout pending
 **Last updated:** 2026-10-12
 
 ## 1. Scope
 
-This runbook tracks baseline setup and the workflow for future application installations. It does not imply that 9router, Hermes, n8n, Obsidian Web, or Octa Hub is installed.
+This runbook tracks baseline setup and the workflow for application installations. 9Router and Hermes are deployed. n8n, Obsidian Web, and Octa Hub remain planned until their deployments are verified.
 
 ## 2. Completed OS Maintenance
 
@@ -90,7 +90,32 @@ For each application:
 9. Review staged files for secrets, commit, and push.
 10. When the installation is healthy and no questions remain, close the session and start a new session for the next application.
 
-## 7. Safety Notes
+## 7. Hermes Deployment Record
+
+Official sources:
+- Repository: https://github.com/NousResearch/hermes-agent
+- Docker installation guide: https://hermes-agent.nousresearch.com/docs/user-guide/docker
+- Web dashboard guide: https://hermes-agent.nousresearch.com/docs/user-guide/features/web-dashboard
+
+Verified deployment details:
+- Compose directory: `/opt/octa/stacks/hermes/`
+- Persistent data directory: `/opt/octa/data/hermes/`, mounted at `/opt/data`
+- Image reference: `nousresearch/hermes-agent:stable`
+- Dashboard port: `9119`, routed through Dahono Web Ingress at `https://hermes.octalectzz.my.id`
+- API server port: `8642`; not published as a host port in Compose
+- Docker network: external network `octa-hub`
+- Nous OAuth login: verified through the public HTTPS domain
+- Basic Auth login: verified through the public HTTPS domain
+- Telegram connection: previously verified in gateway logs
+- Runtime configuration and credentials remain on the VPS and must never be committed
+
+Security follow-up:
+- `terminal.backend` is currently `local`. Docker CLI is present in the Hermes container, but the Docker daemon is not reachable from it. Do not mount the host Docker socket just to enable the Docker backend.
+- API server is enabled and listens on the container network. Its port is not published to the host, but containers attached to `octa-hub` may be able to reach it. Review network trust boundaries before adding more services.
+- Review the official Hermes sandbox guidance before changing the terminal backend.
+- Confirm the final public dashboard authentication policy and trusted-proxy configuration before declaring security closeout complete.
+
+## 8. Safety Notes
 
 - Do not change SSH or firewall settings without reviewing NAT and recovery access.
 - UFW was inactive during an earlier audit; recheck current state before changes.

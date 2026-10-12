@@ -2,7 +2,7 @@
 
 Infrastructure repository for the Octa Hub self-hosted environment. This repository documents the architecture, configuration conventions, operational runbooks, security controls, and recovery procedures for services deployed on a Dahono Cloud VPS.
 
-> **Current phase:** VPS baseline completed. 9Router is deployed and its basic health endpoint is verified; ingress security review and final documentation closeout remain pending. Other application stacks have not yet been installed.
+> **Current phase:** VPS baseline completed. 9Router and Hermes Agent are deployed. The 9Router ingress security review and Hermes security closeout remain pending. n8n, Obsidian Web, and the Octa Hub dashboard remain planned.
 
 ## Architecture Overview
 
@@ -11,7 +11,7 @@ Infrastructure repository for the Octa Hub self-hosted environment. This reposit
 | Service | Repository directory | Public URL | Status |
 |---|---|---|---|
 | 9router | `stacks/router/` | https://router.octalectzz.my.id | Deployed; basic health verified; security review pending |
-| Hermes Agent and dashboard | `stacks/hermes/` | https://hermes.octalectzz.my.id | Planned |
+| Hermes Agent and dashboard | `stacks/hermes/` | https://hermes.octalectzz.my.id | Deployed; OAuth and Basic Auth login verified; API security review pending |
 | n8n | `stacks/n8n/` | https://n8n.octalectzz.my.id | Planned |
 | Obsidian Web | `stacks/obsidian/` | https://obsidian.octalectzz.my.id | Planned |
 | Octa Hub dashboard | `stacks/octa-hub/` | https://hub.octalectzz.my.id | Planned |
@@ -41,7 +41,7 @@ The repository is currently Public by user decision. Treat all committed content
 ├── .gitignore                        # Excludes local secrets and generated data
 ├── stacks/                           # Per-service Docker Compose configuration
 │   ├── router/
-│   │   ├── compose.yaml              # To be added after official-doc review
+│   │   ├── compose.yaml              # Existing deployment configuration
 │   │   ├── .env                      # Local only; never commit
 │   │   └── .env.example              # Safe template; commit when documented
 │   ├── hermes/
@@ -68,9 +68,15 @@ The repository is currently Public by user decision. Treat all committed content
     ├── 04-installation-and-verification-runbook.md
     ├── 05-open-items-and-verification.md
     └── 06-vps-initialization-record.md
+    ├── 07-router-installation-record.md
+    ├── 08-router-security-and-open-items.md
+    ├── 09-next-session-handoff.md
+    ├── 10-hermes-deployment.md
+    ├── 11-hermes-security.md
+    └── 12-hermes-operations.md
 ```
 
-The tree describes the intended repository structure. Files such as service `compose.yaml` and actual `.env` files may not exist yet. Runtime data is kept on the VPS under `/opt/octa/data/`, not in Git. Local backup artifacts and operational logs are also excluded from version control.
+The tree shows the repository structure and planned locations for service configuration files. Compose files currently exist for 9Router and Hermes Agent; Compose files for other planned services may not exist yet. Actual `.env` files and persistent application data remain on the VPS and must never be committed to Git. Runtime data is kept under `/opt/octa/data/`, outside the repository. Local backup artifacts and operational logs are also excluded from version control.
 
 ## Directory Responsibilities
 
@@ -104,6 +110,12 @@ Start at [`docs/README.md`](docs/README.md) for the documentation index.
 - [Installation and Verification Runbook](docs/04-installation-and-verification-runbook.md)
 - [Open Items and Verification](docs/05-open-items-and-verification.md)
 - [VPS Initialization Record](docs/06-vps-initialization-record.md)
+- [9Router Installation Record](docs/07-router-installation-record.md)
+- [9Router Security and Open Items](docs/08-router-security-and-open-items.md)
+- [Next Session Handoff](docs/09-next-session-handoff.md)
+- [Hermes Deployment](docs/10-hermes-deployment.md)
+- [Hermes Security Review](docs/11-hermes-security.md)
+- [Hermes Operations and Troubleshooting](docs/12-hermes-operations.md)
 
 ## Git Safety
 

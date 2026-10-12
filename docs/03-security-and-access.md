@@ -1,6 +1,6 @@
 # 03 — Security and Access Controls
 
-**Status:** Policy agreed; application-level controls not implemented  
+**Status:** Security policy documented; 9Router and Hermes deployed; security reviews remain open
 **Last updated:** 2026-10-12
 
 ## 1. SSH
@@ -21,12 +21,16 @@ Controls still to evaluate:
 
 ## 2. Firewall and Ingress
 
-- UFW was inactive during an earlier audit; recheck before making changes.
+- UFW was inactive during an earlier audit; recheck the current state before making changes.
 - Docker-published ports may bypass expectations based only on UFW rules.
-- Review Dahono NAT, port forwarding, Web Ingress, and Docker networking before exposing services.
-- Dahono Web Ingress is planned for subdomains and HTTPS, but upstream and port behavior must be verified.
+- Dahono Web Ingress is currently used to serve the Hermes dashboard at `https://hermes.octalectzz.my.id`.
+- Hermes dashboard access through the public HTTPS domain has been verified with Nous OAuth and Basic Auth.
+- The exact ingress source addresses, trusted-proxy configuration, and public authentication policy remain under review.
+- Review Dahono NAT, port forwarding, Web Ingress, and Docker networking before exposing additional services.
+- Hermes API port `8642` is not published as a host port in its Compose configuration, but containers attached to `octa-hub` may still be able to reach it.
 - Do not expose internal service ports without a reviewed requirement.
-- Do not add a second reverse proxy until Web Ingress behavior is understood.
+- Do not add a second reverse proxy until the existing Web Ingress behavior is understood.
+- Recheck firewall and network exposure before declaring security closeout complete.
 
 ## 3. Obsidian Vault
 

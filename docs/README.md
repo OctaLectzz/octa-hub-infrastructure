@@ -1,24 +1,38 @@
-# Octa Hub Documentation
+# Octa Hub Documentation Index
 
-This directory contains the architecture decisions, security policy, backup/restore plan, operational runbooks, verification checklist, and VPS initialization record for Octa Hub.
+This directory contains documentation for Octa Hub infrastructure, including architecture, installation, security, operations, and service recovery on the VPS.
 
-## Documents
+## Architecture and Infrastructure
 
-1. [`01-architecture-and-decisions.md`](01-architecture-and-decisions.md) — architecture, services, domains, directory layout, and implementation decisions.
-2. [`02-backup-and-restore.md`](02-backup-and-restore.md) — backup destinations, encryption, retention, validation, and restore testing.
-3. [`03-security-and-access.md`](03-security-and-access.md) — SSH, firewall/ingress, vault deletion approvals, Octa Hub permissions, and secret handling.
-4. [`04-installation-and-verification-runbook.md`](04-installation-and-verification-runbook.md) — baseline setup and future installation/verification workflow.
-5. [`05-open-items-and-verification.md`](05-open-items-and-verification.md) — completed baseline items, unresolved checks, and future work.
-6. [`06-vps-initialization-record.md`](06-vps-initialization-record.md) — recorded OS updates, Docker installation, directory setup, and GitHub setup.
-7. [`07-router-installation-record.md`](07-router-installation-record.md) — verified 9Router deployment details and test results.
-8. [`08-router-security-and-open-items.md`](08-router-security-and-open-items.md) — 9Router security review and unresolved checks.
-9. [`09-next-session-handoff.md`](09-next-session-handoff.md) — handoff notes and rules for the next Project session.
+- [Architecture and Decisions](01-architecture-and-decisions.md) — Infrastructure architecture and design decisions.
+- [Backup and Restore](02-backup-and-restore.md) — Backup and recovery policies.
+- [Security and Access](03-security-and-access.md) — Security controls and access policies.
+- [Installation and Verification Runbook](04-installation-and-verification-runbook.md) — Installation and verification procedures.
+- [Open Items and Verification](05-open-items-and-verification.md) — Outstanding tasks and verification requirements.
+- [VPS Initialization Record](06-vps-initialization-record.md) — VPS initialization history.
+- [9Router Installation Record](07-router-installation-record.md) — 9Router installation and deployment record.
+- [9Router Security and Open Items](08-router-security-and-open-items.md) — 9Router security findings and outstanding tasks.
+- [Next Session Handoff](09-next-session-handoff.md) — Project status and instructions for continuing the work.
+
+## Hermes Agent
+
+- [Hermes Deployment](10-hermes-deployment.md) — Deployment configuration and verification results.
+- [Hermes Security Review](11-hermes-security.md) — Authentication, API access, networking, terminal backend, and security findings.
+- [Hermes Operations and Troubleshooting](12-hermes-operations.md) — Operational commands and troubleshooting procedures.
+
+## Project Principles
+
+- Follow the official documentation and repository of each application.
+- Verify versions and configuration before making changes.
+- Never commit credentials, real `.env` files, or runtime data to Git.
+- Mark work as complete only after verification.
+- Clearly separate deployment, documentation, and security review activities.
 
 ## Documentation Rules
 
-- Repository files must be written in English.
-- Distinguish planned work from work verified on the VPS.
+- All repository documentation must be written in English.
+- Clearly distinguish planned work from verified work.
 - Follow official application documentation and repositories.
-- Update relevant documents when decisions or live configuration change.
-- Review public-disclosure risks before committing because the GitHub repository is currently Public.
-- Never include real `.env` contents, passwords, API tokens, encryption keys, private keys, or other secrets.
+- Update relevant documentation when deployment decisions or live configuration change.
+- Review public disclosure risks before committing because this repository is public.
+- Never commit real `.env` files, passwords, API tokens, encryption keys, private keys, or other secrets.
