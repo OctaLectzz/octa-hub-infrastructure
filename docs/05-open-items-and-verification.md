@@ -38,8 +38,13 @@
 ## D. Security
 
 - [ ] Evaluate password strength and login rate-limiting controls.
-- [ ] Review UFW, nftables, Docker-published ports, and provider ingress together.
+- [x] Inspect UFW, nftables, Docker-published ports, and host firewall rules during the initial Hermes audit.
+- [ ] Determine external reachability of published application ports from additional networks where appropriate.
+- [ ] Verify Dahono ingress upstream targets, required ports, TLS, and source addresses.
 - [ ] Define authentication requirements for each public dashboard.
+- [ ] Review Hermes API authentication and network access; the unauthenticated `/v1/models` test returned HTTP `401`.
+- [ ] Review Hermes terminal backend isolation; the current backend is `local` and does not provide sandbox isolation.
+- [ ] Review trusted-proxy settings against official Hermes documentation.
 - [ ] Design a deletion-approval mechanism that cannot be bypassed for the Obsidian vault.
 - [ ] Define Octa Hub's administrative action allowlist, additional authorization, and audit trail.
 - [ ] Review GitHub content for public-disclosure risks before every push.
@@ -71,9 +76,11 @@
 - [x] Verify dashboard access through Dahono Web Ingress at `https://hermes.octalectzz.my.id`.
 - [x] Verify Nous OAuth and Basic Auth login through the public HTTPS domain.
 - [x] Verify that API port `8642` is not published as a host port in the Hermes Compose configuration.
-- [ ] Review the public dashboard authentication policy and trusted-proxy configuration.
+- [x] Document observed Hermes container settings, network membership, runtime file permissions, and host firewall state.
+- [ ] Finalize the public dashboard authentication policy and trusted-proxy review.
+- [ ] Determine whether direct access to dashboard port `9119` can be restricted without breaking Dahono ingress.
 - [ ] Review Hermes API network access and terminal backend isolation before adding more services to `octa-hub`.
-- [ ] Update and review Hermes deployment documentation, then commit and push the verified changes.
+- [ ] Finish reviewing Hermes documentation, then commit and push the verified changes.
 - [ ] Verify official n8n documentation, sandbox/runner template, and compatible versions.
 - [ ] Confirm whether PostgreSQL is required and finalize database design.
 - [ ] Verify Obsidian Web deployment option and security requirements.

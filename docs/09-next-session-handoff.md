@@ -54,20 +54,24 @@ Do not repeat VPS initialization. Resume from the repository's actual Git state 
 
 ## Hermes Deployment and Security State
 
-- Official repository: https://github.com/NousResearch/hermes-agent
-- Official Docker guide: https://hermes-agent.nousresearch.com/docs/user-guide/docker
-- Official dashboard guide: https://hermes-agent.nousresearch.com/docs/user-guide/features/web-dashboard
-- Compose: `/opt/octa/stacks/hermes/compose.yaml`
-- Persistent data: `/opt/octa/data/hermes/`
-- Image reference: `nousresearch/hermes-agent:stable`
-- Dashboard: `https://hermes.octalectzz.my.id`, routed through Dahono Web Ingress to port `9119`
-- Nous OAuth and Basic Auth login have both been verified through HTTPS.
-- Telegram connection was previously confirmed in gateway logs.
-- API server uses port `8642`, which is not published as a host port in Compose.
-- `terminal.backend` remains `local`. Docker CLI exists in the container, but the Docker daemon is not reachable. Do not mount the host Docker socket as a quick fix.
-- API access from containers on `octa-hub`, sandbox isolation, trusted-proxy settings, and the public dashboard authentication policy still require review.
-- Never display or commit actual `.env` files, OAuth credentials, API keys, Telegram tokens, or Hermes runtime data.
+- Hermes Agent is deployed using Docker Compose with image `nousresearch/hermes-agent:stable`.
+- Public dashboard: `https://hermes.octalectzz.my.id`.
+- Nous OAuth and Basic Auth login were verified through the public HTTPS domain.
+- Dashboard port `9119` is published on all host interfaces (`0.0.0.0` and `[::]`). Whether direct access can be restricted without breaking Dahono Web Ingress remains unresolved.
+- API port `8642` is not published as a host port. An unauthenticated request to `/v1/models` returned HTTP `401`; API authorization and container-to-container access still require further review.
+- Hermes and 9Router share the Docker network `octa-hub`.
+- The terminal backend is `local`, without sandbox isolation. The container runs as `root`, has a writable root filesystem, and does not mount the host Docker socket.
+- UFW was inactive during the audit. Host firewall and Docker-published port findings are documented in `docs/11-hermes-security.md`.
+- The runtime files `.env`, `config.yaml`, and `auth.json` were observed with permissions `600` and owner `hermes:hermes`.
+- The Hermes security findings and residual risks have been documented. This is not a complete penetration test or security certification.
 
-## Start of the Following Session
+## Start of Following Session
 
-First review the actual Git status and full diff. Verify that only safe Compose, template, and documentation files are included. Complete the Hermes security review before marking the installation closed. Do not repeat VPS initialization or reinstall Hermes unless a verified issue requires it. Once Hermes is documented and pushed, start the next application in a separate session and follow its official documentation.
+1. Check `git status --short` and inspect the current diff before making further edits.
+2. Finish reviewing `docs/05-open-items-and-verification.md`, `docs/09-next-session-handoff.md`, and `docs/03-security-and-access.md` against `docs/11-hermes-security.md`.
+3. Verify that documentation distinguishes confirmed observations from unresolved risks.
+4. Run `git diff --check` and inspect all changed files for accidental disclosure of secrets before staging.
+5. Commit and push the reviewed documentation only after the final review.
+6. After the documentation is pushed, continue with the separate 9Router security review, including published port `20128`, Dahono ingress behavior, official image updates, and the existing backup's restore verification.
+
+Do not change live security settings or expose credentials as part of documentation-only work.
