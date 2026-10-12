@@ -1,0 +1,19 @@
+services:
+  router:
+    image: ghcr.io/decolua/9router:0.5.95
+    container_name: router
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      DATA_DIR: /app/data
+      PORT: "20128"
+      HOSTNAME: "0.0.0.0"
+      NODE_ENV: production
+    ports:
+      - "20128:20128"
+    volumes:
+      - /opt/octa/data/router:/app/data
+    security_opt:
+      - no-new-privileges:true
+    init: true
