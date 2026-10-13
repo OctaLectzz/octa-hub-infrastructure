@@ -30,7 +30,8 @@
 - [x] Record OS, CPU, memory, disk, container IP, and SSH endpoint.
 - [ ] Review current SSH effective configuration and authentication logs.
 - [ ] Verify Dahono NAT and port-forwarding details.
-- [ ] Verify Dahono Web Ingress upstream target, required ports, TLS, and restart behavior.
+- [x] Review 9Router Dahono Web Ingress domain and target port `20128`; HTTPS health returned `200`. Owner accepts source-IP trust as resolved for this checklist, although the source range was not independently observed.
+- [ ] Verify any remaining ingress upstream details and restart behavior where not exposed by the dashboard.
 - [ ] Verify recovery-console availability and restore behavior.
 - [ ] Verify scope, retention, and cost of Dahono `Backup to KVM`.
 - [ ] Recheck current firewall and listening ports before exposing applications.
@@ -40,7 +41,7 @@
 - [ ] Evaluate password strength and login rate-limiting controls.
 - [x] Inspect UFW, nftables, Docker-published ports, and host firewall rules during the initial Hermes audit.
 - [ ] Determine external reachability of published application ports from additional networks where appropriate.
-- [ ] Verify Dahono ingress upstream targets, required ports, TLS, and source addresses.
+- [x] Record 9Router Dahono Web Ingress domain/port and HTTPS behavior. Source-IP trust accepted by owner; source range not independently verified. Other services' ingress settings remain subject to their own review.
 - [ ] Define authentication requirements for each public dashboard.
 - [ ] Review Hermes API authentication and network access; the unauthenticated `/v1/models` test returned HTTP `401`.
 - [ ] Review Hermes terminal backend isolation; the current backend is `local` and does not provide sandbox isolation.
@@ -68,9 +69,10 @@
 - [x] Verify Compose configuration, container running state, HTTPS login page, and API health endpoint.
 - [x] Create and validate a local archive of 9Router persistent data.
 - [x] Commit and push 9Router Compose configuration and safe environment template (`f5d7891`).
-- [ ] Review direct exposure of port 20128 and confirm Dahono ingress/network behavior.
+- [x] Perform initial 9Router network review: port binding, host firewall rules, Dahono target port, public health, direct TCP from one client, API authentication, and dashboard redirect recorded. This does not prove global inaccessibility.
+- [ ] Plan and validate a safe restriction for direct access to port `20128` without breaking Web Ingress; host firewall/port remediation remains open.
 - [ ] Resolve the dashboard `0.5.99` notice against official published image tags.
-- [ ] Perform a staging restore test for the 9Router backup.
+- [ ] Perform an application-level staging restore test for the 9Router backup.
 - [x] Review official Hermes Agent Docker and dashboard documentation.
 - [x] Deploy Hermes Agent and dashboard with Docker Compose using `nousresearch/hermes-agent:stable`.
 - [x] Verify dashboard access through Dahono Web Ingress at `https://hermes.octalectzz.my.id`.

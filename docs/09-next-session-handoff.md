@@ -42,13 +42,25 @@
 - Health endpoint returned `{"ok":true}`.
 - Latest configuration commit: `f5d7891` (`chore(router): add Docker Compose configuration`), pushed to GitHub.
 
+## 9Router Network Audit Update (2026-10-13)
+
+- Public HTTPS `https://router.octalectzz.my.id/api/health` returned HTTP `200`.
+- Unauthenticated `/v1/models` returned HTTP `401`.
+- `/` redirected to `/dashboard`; `/dashboard` redirected to `/login`; `/login` returned HTTP `200`.
+- Direct TCP test from one Windows Wi-Fi client to `143.20.199.50:20128` failed. Do not infer global inaccessibility from this single test.
+- Docker publishes port `20128` on all host interfaces. UFW was inactive; host nftables input/forward policies were `accept`; `DOCKER-USER` was empty during inspection.
+- The owner accepts Dahono Web Ingress source-IP trust as resolved for checklist purposes; the source range was not independently observed in this session.
+- No live configuration was changed during this audit.
+- The backup archive extracted to `/opt/octa/backups/staging/router-restore-audit-20261013`; the backup SQLite database passed `PRAGMA integrity_check`.
+- Backup and production databases have the same 11 table names/columns but differ in row counts and record hashes. Do not restore this backup over production; application-level staging restore remains open.
+
 ## Outstanding 9Router Checks
 
 - Port `20128` currently uses `20128:20128` and binds to all host interfaces.
-- Dahono ingress and direct port exposure need a security review.
+- Initial Dahono ingress/direct-port observations are recorded in `docs/08-router-security-and-open-items.md`; safe host firewall/port remediation and external verification remain open.
 - Dashboard showed a `0.5.99` update notice, but the tag was not verified in the official registry during the session.
-- The local backup has not been restored in staging.
-- README and verification checklist have been updated; confirm the documentation commit is pushed before beginning the next service.
+- The local backup was extracted to an isolated audit directory and its SQLite file passed integrity checking. A complete application-level staging restore has not been performed.
+- Security review, verification checklist, and session handoff have been updated locally. Review and commit these changes before beginning the next service. The README has not been updated in this audit.
 
 Do not repeat VPS initialization. Resume from the repository's actual Git state and these notes.
 
