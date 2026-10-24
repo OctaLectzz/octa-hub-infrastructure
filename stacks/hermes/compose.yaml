@@ -1,6 +1,6 @@
 services:
   hermes:
-    image: nousresearch/hermes-agent:stable
+    image: nousresearch/hermes-agent:v0.22.5
     container_name: hermes
     restart: unless-stopped
     command: ["gateway", "run"]
