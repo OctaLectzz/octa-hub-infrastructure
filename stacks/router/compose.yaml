@@ -1,6 +1,6 @@
 services:
   router:
-    image: ghcr.io/decolua/9router:0.5.95
+    image: ghcr.io/decolua/9router:0.5.109
     container_name: router
     restart: unless-stopped
     env_file:
@@ -14,6 +14,14 @@ services:
       - "20128:20128"
     volumes:
       - /opt/octa/data/router:/app/data
+    networks:
+      - octa-hub
+      - default
     security_opt:
       - no-new-privileges:true
     init: true
+
+networks:
+  octa-hub:
+    external: true
+    name: octa-hub
