@@ -1,0 +1,57 @@
+services:
+  waha:
+    image: devlikeapro/waha:noweb-2026.10.1
+    container_name: waha
+    restart: unless-stopped
+    ports:
+      - "3001:3000"
+    env_file:
+      - .env
+    environment:
+      # Engine Configuration
+      WHATSAPP_DEFAULT_ENGINE: NOWEB
+      WAHA_NOWEB_WA_VERSION: auto-web
+      TZ: Asia/Jakarta
+      WAHA_PRINT_QR: "True"
+
+      # Public Domain & Metadata URLs
+      WAHA_PUBLIC_URL: https://whatsapp.octalectzz.my.id
+      WHATSAPP_API_SCHEMA: https
+      WHATSAPP_API_HOSTNAME: whatsapp.octalectzz.my.id
+      WAHA_BASE_URL: https://whatsapp.octalectzz.my.id
+
+      # Features
+      WAHA_DASHBOARD_ENABLED: "true"
+      WAHA_SWAGGER_ENABLED: "true"
+
+      # Media Storage & Automated Pruning
+      WAHA_MEDIA_PRUNING_ENABLED: "true"
+      WAHA_MEDIA_PRUNING_INTERVAL: "86400"
+      WAHA_MEDIA_PRUNING_AGE: "86400"
+    volumes:
+      - /opt/octa/data/waha:/app/.sessions
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
+        reservations:
+          memory: 180M
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '10m'
+        max-file: '3'
+    networks:
+      - octa-hub
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f -s http://127.0.0.1:3000/ping || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+
+networks:
+  octa-hub:
+    external: true
+    name: octa-hub
