@@ -31,6 +31,7 @@ services:
     volumes:
       - /opt/octa/data/waha:/app/.sessions
       - /opt/octa/data/waha/custom-ui/login.html:/app/dist/dashboard/auth.html:ro
+      - /opt/octa/data/waha/custom-ui/basicAuth.js:/app/dist/core/auth/basicAuth.js:ro
     deploy:
       resources:
         limits:
