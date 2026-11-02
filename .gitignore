@@ -37,3 +37,7 @@
 Thumbs.db
 .vscode/
 .idea/
+
+# Python bytecode
+__pycache__/
+*.pyc
