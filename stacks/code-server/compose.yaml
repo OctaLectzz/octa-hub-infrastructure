@@ -1,0 +1,38 @@
+services:
+  code-server:
+    image: codercom/code-server:4.145.2
+    container_name: code-server
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      PASSWORD: ${PASSWORD}
+      DEFAULT_WORKSPACE: /home/coder/project/erp-syailendra
+      PATH: /opt/node/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+    ports:
+      - "8443:8080"
+      - "3000:3000"
+    volumes:
+      - /opt/octa/data/node-lts:/opt/node:ro
+      - /opt/octa/workspace:/home/coder/project
+      - /opt/octa/data/code-server:/home/coder/.local/share/code-server
+      - /opt/octa/data/code-server-config:/home/coder/.config/code-server
+    deploy:
+      resources:
+        limits:
+          cpus: "2.0"
+          memory: 4096M
+        reservations:
+          memory: 256M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20m"
+        max-file: "3"
+    networks:
+      - octa-hub
+
+networks:
+  octa-hub:
+    external: true
+    name: octa-hub
