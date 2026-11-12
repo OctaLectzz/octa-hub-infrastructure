@@ -1,6 +1,6 @@
 services:
   router:
-    image: ghcr.io/decolua/9router:0.5.109
+    image: ghcr.io/decolua/9router:0.5.116
     container_name: router
     restart: unless-stopped
     env_file:
